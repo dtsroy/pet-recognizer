@@ -1,0 +1,1 @@
+download from https://hf-mirror.com/datasets/pcuenq/oxford-pets/resolve/main/data/train-00000-of-00001-ecc2afb43dedd5e0.parquet?download=true
