@@ -12,7 +12,7 @@ else:
 
 
 def main():
-    trainer = Trainer(device, mp='../m33/', using_m3=True)
+    trainer = Trainer(device, mp='../m4/', using_m3='M4')
     trainer.train()
 
 

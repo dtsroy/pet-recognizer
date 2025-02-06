@@ -76,3 +76,16 @@ class M3(nn.Module):
 
     def forward(self, x):
         return self.resnet(x)
+
+
+class M4(nn.Module):
+    def __init__(self, num_classes=37, freeze=True):
+        super(M4, self).__init__()
+        self.resnet = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+        if freeze:
+            for p in self.resnet.parameters():
+                p.requires_grad = False
+        self.resnet.fc = nn.Linear(self.resnet.fc.in_features, num_classes)
+
+    def forward(self, x):
+        return self.resnet(x)

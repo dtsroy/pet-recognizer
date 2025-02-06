@@ -9,12 +9,15 @@ from loader import get_loader
 
 
 class Trainer:
-    def __init__(self, device, fp='../data/pro.parquet', mp='../models/', using_m3=False):
+    def __init__(self, device, fp='../data/pro.parquet', mp='../models/', using_model='M4'):
         self.mp = mp
-        if using_m3:
+        if using_model == 'M3':
             self.model = model.M3(freeze=True).to(device)
             self.optimizer = optim.Adam(self.model.resnet.fc.parameters(), lr=1e-3)
-        else:
+        elif using_model == 'M4':
+            self.model = model.M4(freeze=True).to(device)
+            self.optimizer = optim.Adam(self.model.resnet.fc.parameters(), lr=1e-3)
+        elif using_model == 'M1':
             self.model = model.PetRecognizer().to(device)
             self.optimizer = optim.Adam(self.model.parameters(), lr=1e-3)
 
