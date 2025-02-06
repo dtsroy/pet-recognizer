@@ -2,3 +2,4 @@ data/data.parquet
 *.pt
 *.pth
 */__pycache__/
+*.png

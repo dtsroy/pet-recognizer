@@ -13,7 +13,7 @@ else:
 
 def main():
     trainer = Trainer(device, mp='../m4/', using_model='M4')
-    trainer.train(1)
+    trainer.train()
 
 
 if __name__ == '__main__':
