@@ -70,7 +70,13 @@ class Trainer:
 
             accuracy = correct / total
             if accuracy > self.acc_v:
-                torch.save(self.model.state_dict(), self.mp + f'm_ep{epoch}.pth')
+                # torch.save(self.model.state_dict(), self.mp + f'm_ep{epoch}.pth')
+                torch.save(
+                    self.model.module.state_dict()
+                    if isinstance(self.model, nn.DataParallel)
+                    else self.model.state_dict(),
+                    self.mp + f'm_ep{epoch}.pth'
+                )
                 self.acc_v = accuracy
             self.lacc_v = accuracy
             al.append(accuracy)
