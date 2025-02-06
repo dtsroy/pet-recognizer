@@ -7,9 +7,12 @@ if torch.cuda.is_available():
 else:
     device = torch.device('cpu')
 
+# import torch_directml
+# device = torch_directml.device()
+
 
 def main():
-    trainer = Trainer(device)
+    trainer = Trainer(device, mp='../m33/', using_m3=True)
     trainer.train()
 
 
