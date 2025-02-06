@@ -70,4 +70,5 @@ class Trainer:
         plt.plot(ll)
         plt.plot(al)
         plt.show()
+        plt.savefig('train.png')
 
