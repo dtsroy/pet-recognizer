@@ -12,14 +12,19 @@ class Trainer:
     def __init__(self, device, fp='../data/pro.parquet', mp='../models/', using_model='M4'):
         self.mp = mp
         if using_model == 'M3':
-            self.model = model.M3(freeze=True).to(device)
+            self.model = model.M3(freeze=True)
             self.optimizer = optim.Adam(self.model.resnet.fc.parameters(), lr=1e-3)
         elif using_model == 'M4':
-            self.model = model.M4(freeze=True).to(device)
+            self.model = model.M4(freeze=True)
             self.optimizer = optim.Adam(self.model.resnet.fc.parameters(), lr=1e-3)
         elif using_model == 'M1':
-            self.model = model.PetRecognizer().to(device)
+            self.model = model.PetRecognizer()
             self.optimizer = optim.Adam(self.model.parameters(), lr=1e-3)
+
+        if torch.cuda.device_count() > 1:
+            self.model = nn.DataParallel(self.model)
+
+        self.model = self.model.to(device)
 
         self.train_loader, self.test_loader = get_loader(fp, device)
 
