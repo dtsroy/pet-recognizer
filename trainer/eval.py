@@ -36,4 +36,4 @@ def evalM3(fp, mp):
     print(cor, cnt, cor/cnt)
 
 
-evalM3('../data/pro.parquet', '../m33/m_ep8.pth')
+evalM3('../data/pro.parquet', '../m3/m_ep8.pth')

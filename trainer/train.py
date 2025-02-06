@@ -75,8 +75,8 @@ class Trainer:
             self.lacc_v = accuracy
             al.append(accuracy)
 
-        plt.plot(ll)
-        plt.plot(al)
+        plt.plot(ll, color='blue', label='Loss')
+        plt.plot(al, color='red', label='Accuracy')
         plt.savefig('train.png')
         plt.show()
 
