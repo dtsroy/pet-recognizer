@@ -18,7 +18,7 @@ class PetDataset(Dataset):
         # lbs = torch.tensor(df['label'], dtype=torch.long)
         # print(lbs)
         # self.label = F.one_hot(lbs, -1).to(device)
-        self.label = torch.tensor(df['label'], dtype=torch.long)
+        self.label = torch.tensor(df['label'], dtype=torch.long).to(device)
         self.imgs = []
         for k in range(self.length):
             self.imgs.append(
