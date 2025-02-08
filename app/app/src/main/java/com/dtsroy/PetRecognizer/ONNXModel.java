@@ -60,7 +60,7 @@ public class ONNXModel {
         for (int i = 0; i < length; i++) {
             expValues[i] = (float) Math.exp(input[i]);
             sum += expValues[i];
-            Log.d("MODEL", "i=" + i + ", origin=" + input[i] + ", sum=" + sum);
+            // Log.d("MODEL", "i=" + i + ", origin=" + input[i] + ", sum=" + sum);
         }
 
         // 计算 softmax 值
@@ -82,8 +82,10 @@ public class ONNXModel {
             tensor.close();
             Log.i("MODEL", "run successfully!");
 
+            String[] name = Utils.loadClassNames(context, R.raw.names);
+            assert name != null;
             for (int i=0; i<37; i++) {
-                Log.d("MODEL", "id=" + i + "p=" + res[i]);
+                Log.d("MODEL", "id=" + i + ", p=" + res[i] * 100 + "%" + ", name=" + name[i]);
             }
 
         } catch (IOException e) {

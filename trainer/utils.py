@@ -5,10 +5,15 @@ import torch
 import onnx
 
 
-def get_classes(fp='../data/data.parquet', jp='../data/classes.json', dp='../data/pro.parquet'):
+def get_classes(fp='../data/data.parquet', jp='../data/names.json', dp='../data/pro.parquet'):
     df = pd.read_parquet(fp)
+    # return
     labels = list(set(list(df['label'])))
-    labels = dict(zip(labels, range(len(labels))))
+    labels.sort()
+    print(labels[10])
+    with open(jp, 'w+') as f:
+        json.dump(labels, f, indent=True)
+    # labels = dict(zip(labels, range(len(labels))))
     # print(labels)
 
     new_df = pd.DataFrame()
@@ -17,10 +22,9 @@ def get_classes(fp='../data/data.parquet', jp='../data/classes.json', dp='../dat
     new_df.insert(1, 'label', -1)
     # print(new_df)
     for i in range(len(df['label'])):
-        new_df.loc[i, 'label'] = labels[df.loc[i, 'label']]
+        new_df.loc[i, 'label'] = labels.index(df.loc[i, 'label'])
 
-    with open(jp, 'w+') as f:
-        json.dump(labels, f, indent=True)
+
     new_df.to_parquet(dp)
 
 
@@ -45,10 +49,12 @@ def export_as_onnx(pth_p, out_p, using_model='M4'):
 def get_image_bytes(_id, fp, outp):
     df = pd.read_parquet(fp)
     b = df.loc[_id, 'image']['bytes']
+    print(df.loc[_id, 'label'])
     with open(outp, 'wb+') as f:
         f.write(b)
 
 
-get_image_bytes(1, '../data/pro.parquet', '0.bin')
-
-
+# export_as_onnx('../m4/m_ep24.pth', '../models/PetRecognizerM4.onnx')
+get_image_bytes(0, '../data/pro.parquet', 'img0.bin')
+get_image_bytes(0, '../data/data.parquet', 'img0.bin_')
+get_classes()
