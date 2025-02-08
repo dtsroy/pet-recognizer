@@ -3,3 +3,4 @@ data/data.parquet
 *.pth
 */__pycache__/
 *.png
+*.onnx

@@ -14,6 +14,7 @@ class PetDataset(Dataset):
         ts = transformers.Compose([
             transformers.Resize((224, 224)),
             transformers.ToTensor(),
+            transformers.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
         # lbs = torch.tensor(df['label'], dtype=torch.long)
         # print(lbs)
