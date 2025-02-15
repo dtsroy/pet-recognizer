@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import model
 from loader import get_loader
 
+from bin import BinaryResNet18
+
 
 class Trainer:
     def __init__(self, device, fp='../data/pro.parquet', mp='../models/', using_model='M4'):
@@ -20,13 +22,19 @@ class Trainer:
         elif using_model == 'M1':
             self.model = model.PetRecognizer()
             self.optimizer = optim.Adam(self.model.parameters(), lr=1e-3)
+        elif using_model == 'BIN':
+            self.model = BinaryResNet18(37)
+            self.optimizer = optim.Adam(self.model.parameters(), lr=1e-3)
 
         if torch.cuda.device_count() > 1:
             self.model = nn.DataParallel(self.model)
 
         self.model = self.model.to(device)
 
-        self.train_loader, self.test_loader = get_loader(fp, device)
+        if not bin:
+            self.train_loader, self.test_loader = get_loader(fp, device)
+        else:
+            self.train_loader, self.test_loader = get_loader(fp, device, bin=True)
 
         self.criterion = nn.CrossEntropyLoss()
         self.loss_v = 1e9

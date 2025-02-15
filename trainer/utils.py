@@ -3,6 +3,8 @@ import pandas as pd
 import model
 import torch
 import onnx
+import io
+from PIL import Image
 
 
 def get_classes(fp='../data/data.parquet', jp='../data/names.json', dp='../data/pro.parquet'):
@@ -54,7 +56,18 @@ def get_image_bytes(_id, fp, outp):
         f.write(b)
 
 
-# export_as_onnx('../m4/m_ep24.pth', '../models/PetRecognizerM4.onnx')
-get_image_bytes(0, '../data/pro.parquet', 'img0.bin')
-get_image_bytes(0, '../data/data.parquet', 'img0.bin_')
-get_classes()
+def get_image(_id, fp, outp):
+    df = pd.read_parquet(fp)
+    b = df.loc[_id, 'image']['bytes']
+    print(df.loc[_id, 'label'])
+    bio = io.BytesIO(b)
+    image = Image.open(bio)
+    image.save(outp)
+
+
+# export_as_onnx('../m4/m_ep12.pth', '../models/PetRecognizerM4.onnx')
+# get_image_bytes(10, '../data/pro.parquet', 'img0.bin')
+# get_image_bytes(10, '../data/data.parquet', 'img0.bin_')
+# get_classes()
+get_image(10, '../data/pro.parquet', 'a1.png')
+get_image(10, '../data/data.parquet', 'a2.png')

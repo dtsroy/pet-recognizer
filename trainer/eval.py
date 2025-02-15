@@ -28,4 +28,4 @@ def eval_model(using_model, fp, mp):
     print(cor, cnt, cor/cnt)
 
 
-eval_model('M4', '../data/pro.parquet', '../m4/m_ep24.pth')
+eval_model('M4', '../data/pro.parquet', '../m4/m_ep12.pth')

@@ -12,7 +12,7 @@ else:
 
 
 def main():
-    trainer = Trainer(device, mp='../m4/', using_model='M4')
+    trainer = Trainer(device, mp='../models/', using_model='BIN')
     trainer.train()
 
 
